@@ -34,12 +34,11 @@ class RmCommand:
         """Delete file"""
         if not self._can_write(file_path):
             raise PermissionError(f"rm: cannot remove '{file_path}': Permission denied")
-        if not typer.confirm(f"Удалить файл '{file_path}'?"):
-            typer.echo("Операция отменена")
+        if not typer.confirm(f"Remove file '{file_path}'?"):
+            typer.echo("Canceled")
             return
         try:
             file_path.unlink()
-            typer.echo(f"Файл '{file_path}' удален")
         except Exception as e:
             raise OSError(f"rm: cannot remove '{file_path}': {str(e)}")
 

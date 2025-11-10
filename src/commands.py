@@ -10,7 +10,7 @@ from src.class_commands.zip_com import ZipCommand
 from src.class_commands.tar_com import TarCommand
 from src.class_commands.touch_com import TouchCommand
 from src.class_commands.mkdir_com import MkdirCommand
-from src.class_commands.grep import GrepCommand
+from src.class_commands.grep_com import GrepCommand
 
 app = typer.Typer()
 
