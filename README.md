@@ -43,7 +43,7 @@ lab2/
 │   │   ├── touch_com.py
 │   │   └── zip_com.py
 │   ├── logging/
-│   │   ├── logger.py
+│   │   └── logger.py
 │   └── main.py
 ├── requirements.txt
 └── README.md
