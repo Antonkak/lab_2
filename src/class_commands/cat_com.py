@@ -1,14 +1,13 @@
 import os
 import typer #ignore
 from pathlib import Path
-from typing import List
 from src.logging.logger import command_logger
 
 class CatCommand:
     """Class for cat command"""
 
     @command_logger
-    def cat(self, files: List[str]):
+    def cat(self, files: list[str]):
         """Concatenate FILE(s) to standard output."""
         for file in files:
             file_path = Path(file)

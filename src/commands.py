@@ -1,5 +1,5 @@
 import typer
-from typing import List, Optional
+from typing import Optional
 from src.class_commands.ls_com import LsCommand
 from src.class_commands.cat_com import CatCommand
 from src.class_commands.cd_com import CdCommand
@@ -25,7 +25,7 @@ def ls(
     ls_command.ls(path, detailed)
 
 @app.command()
-def cat(files: List[str] = typer.Argument(...)):
+def cat(files: list[str] = typer.Argument(...)):
     """Concatenate FILE(s) to standard output."""
     cat_command.cat(files)
 
@@ -36,7 +36,7 @@ def cd(path: str = typer.Argument(...)):
 
 @app.command()
 def cp(
-    sources: List[str] = typer.Argument(..., help="Источники для копирования"),
+    sources: list[str] = typer.Argument(..., help="Источники для копирования"),
     destination: str = typer.Argument(..., help="Назначение"),
     recursive: bool = typer.Option(False, "-r", help="Рекурсивное копирование каталогов")
 ):

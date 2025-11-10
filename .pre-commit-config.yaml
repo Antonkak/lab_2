@@ -8,6 +8,8 @@ repos:
           - types-requests
           - types-PyYAML
           - typer==0.20.0
+          - pytest==8.4.2
+          - pyfakefs==5.10.2
 
 
 
