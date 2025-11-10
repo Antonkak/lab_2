@@ -1,5 +1,5 @@
 import os
-import typer #ignore
+import typer
 from pathlib import Path
 from src.logging.logger import command_logger
 

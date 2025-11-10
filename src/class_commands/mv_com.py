@@ -1,6 +1,5 @@
 import os
 import shutil
-import typer
 from pathlib import Path
 from src.logging.logger import command_logger
 
@@ -31,7 +30,6 @@ class MvCommand:
             raise ValueError("mv: cannot move a directory into itself")
         try:
             shutil.move(str(source_path), str(final_dest))
-            typer.echo(f"Успешно перемещено: {source} -> {final_dest}")
         except Exception as e:
             raise OSError(f"mv: failed to move '{source}' to '{destination}': {str(e)}")
 

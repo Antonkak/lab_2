@@ -158,8 +158,46 @@ class TestRmCommand:
             command = RmCommand()
             with patch('typer.confirm') as mock_confirm:
                 mock_confirm.return_value = True
-
                 command.rm("/project", recursive=True)
-
                 assert not fs.exists("/project")
                 assert not fs.exists("/project/src/main.py")
+
+class TestZipCommand:
+    def test_zip_create_archive(self):
+        """Тест создания ZIP архива"""
+        with Patcher() as patcher:
+            fs = patcher.fs
+            fs.create_dir("/test_folder")
+            fs.create_file("/test_folder/file1.txt", contents="Content 1")
+            fs.create_file("/test_folder/file2.txt", contents="Content 2")
+            fs.create_dir("/test_folder/subdir")
+            fs.create_file("/test_folder/subdir/file3.txt", contents="Content 3")
+            from src.class_commands.zip_com import ZipCommand
+            command = ZipCommand()
+            with patch('typer.echo'):
+                command.zip("/test_folder", "/test.zip")
+                assert fs.exists("/test.zip")
+    def test_zip_nonexistent_folder(self):
+        """Тест создания архива из несуществующей папки"""
+        with Patcher():
+            from src.class_commands.zip_com import ZipCommand
+            command = ZipCommand()
+            with pytest.raises(FileNotFoundError):
+                command.zip("/nonexistent", "/test.zip")
+    def test_unzip_archive(self):
+        """Тест распаковки ZIP архива"""
+        with Patcher() as patcher:
+            fs = patcher.fs
+            import zipfile
+            from io import BytesIO
+            zip_buffer = BytesIO()
+            with zipfile.ZipFile(zip_buffer, 'w') as zipf:
+                zipf.writestr('file1.txt', 'Content 1')
+                zipf.writestr('file2.txt', 'Content 2')
+            fs.create_file("/test.zip", contents=zip_buffer.getvalue())
+            from src.class_commands.zip_com import ZipCommand
+            command = ZipCommand()
+            with patch('typer.echo'):
+                command.unzip("/test.zip", "/extract_dir")
+                assert fs.exists("/extract_dir/file1.txt")
+                assert fs.exists("/extract_dir/file2.txt")
